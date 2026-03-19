@@ -11,11 +11,11 @@ Gra zręcznościowo-eksploracyjna. Poszukiwacz skarbów, wchodzi w głąb ciemne
 * **R** - Szybki restart poziomu.
 
 ## Technologie i Architektura
-* **Silnik:** Godot Engine 4.x
+* **Silnik:** Godot Engine
 * **Język:** GDScript
 * **Fizyka/Ruch:** `CharacterBody2D`
 * **Grafika/Poziom:** Oparta o węzły `TileMap` / `TileMapLayer` z warstwą nawigacyjną i kolizyjną.
-* **System Światła:** Dynamiczne cienie w czasie rzeczywistym realizowane z użyciem `CanvasModulate` (symulacja ciemności), `PointLight2D` z włączonymi cieniami oraz `LightOccluder2D` wewnątrz TileMapy.
+* **System Światła:** Dynamiczne cienie w czasie rzeczywistym (symulacja ciemności), `PointLight2D` z włączonymi cieniami oraz `LightOccluder2D` wewnątrz TileMapy.
 
 ## Plan Rozwoju Projektu (Roadmap)
 
