@@ -2,8 +2,6 @@
 
 Gra zręcznościowo-eksploracyjna. Poszukiwacz skarbów, wchodzi w głąb ciemnej piramidy i szuka starożytnego sarkofagu, zanim zgaśnie jego jedyna pochodnia.
 
-## Uruchomienie
-
 ## Sterowanie
 * **W, A, S, D** lub **Strzałki** - Poruszanie się postacią.
 * **SPACE** - Wykonanie akcji (otworzenie drzwi, podniesienie przedmiotu).
