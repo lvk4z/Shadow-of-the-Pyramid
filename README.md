@@ -16,12 +16,12 @@ Gra zręcznościowo-eksploracyjna. Poszukiwaczem skarbów, wchodzi w głąb ciem
 * **Grafika/Poziom:** Oparta o węzły `TileMap` / `TileMapLayer` z warstwą nawigacyjną i kolizyjną.
 * **System Światła:** Dynamiczne cienie w czasie rzeczywistym realizowane z użyciem `CanvasModulate` (symulacja ciemności), `PointLight2D` z włączonymi cieniami oraz `LightOccluder2D` wewnątrz TileMapy.
 
-## lan Rozwoju Projektu (Roadmap)
+## Plan Rozwoju Projektu (Roadmap)
 
 Poniższa lista przedstawia kolejne etapy (Checkpoints) powstawania gry.
 
 ### Checkpoint 1: Środowisko i Baza (Setup)
-- [ ] Utworzenie repozytorium GitHub z odpowiednim `.gitignore` dla Godota.
+- [X] Utworzenie repozytorium GitHub z odpowiednim `.gitignore` dla Godota.
 - [ ] Inicjalizacja projektu w Godot Engine 4.x.
 - [ ] Stworzenie struktury folderów (`assets`, `scenes`, `scripts`).
 - [ ] Pobranie placeholderów graficznych (np. z darmowych paczek Kenney.nl).
