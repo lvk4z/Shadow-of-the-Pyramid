@@ -6,6 +6,7 @@ Gra zręcznościowo-eksploracyjna. Poszukiwaczem skarbów, wchodzi w głąb ciem
 
 ## Sterowanie
 * **W, A, S, D** lub **Strzałki** - Poruszanie się postacią.
+* **SPACE** - Wykonanie akcji (otworzenie drzwi, podniesienie przedmiotu).
 * **ESC** - Pauza / Wyjście do menu.
 * **R** - Szybki restart poziomu.
 
