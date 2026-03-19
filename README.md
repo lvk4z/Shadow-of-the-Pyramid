@@ -1,6 +1,6 @@
 # Shadow-of-the-Pyramid
 
-Gra zręcznościowo-eksploracyjna. Poszukiwaczem skarbów, wchodzi w głąb ciemnej piramidy i szuka starożytnego sarkofagu, zanim zgaśnie jego jedyna pochodnia.
+Gra zręcznościowo-eksploracyjna. Poszukiwacz skarbów, wchodzi w głąb ciemnej piramidy i szuka starożytnego sarkofagu, zanim zgaśnie jego jedyna pochodnia.
 
 ## Uruchomienie
 
