@@ -21,18 +21,18 @@ Poniższa lista przedstawia kolejne etapy (Checkpoints) powstawania gry.
 
 ### Checkpoint 1: Środowisko i Baza (Setup)
 - [X] Utworzenie repozytorium GitHub z odpowiednim `.gitignore` dla Godota.
-- [ ] Inicjalizacja projektu w Godot Engine 4.x.
-- [ ] Stworzenie struktury folderów (`assets`, `scenes`, `scripts`).
-- [ ] Pobranie placeholderów graficznych (np. z darmowych paczek Kenney.nl).
+- [X] Inicjalizacja projektu w Godot Engine 4.x.
+- [X] Stworzenie struktury folderów (`assets`, `scenes`, `scripts`).
+- [X] Pobranie placeholderów graficznych (np. z darmowych paczek Kenney.nl).
 
 ### Checkpoint 2: Poruszanie się postacią (Player)
-- [ ] Stworzenie sceny gracza (`Player.tscn`) opartej na węźle `CharacterBody2D`.
-- [ ] Dodanie kształtu kolizji dla gracza (`CapsuleShape2D`).
-- [ ] Napisanie skryptu `player.gd` obsługującego płynny ruch w 8 kierunkach (Input wektorowy).
-- [ ] Podpięcie prostej grafiki / kółka reprezentującego gracza.
+- [X] Stworzenie sceny gracza (`Player.tscn`) opartej na węźle `CharacterBody2D`.
+- [X] Dodanie kształtu kolizji dla gracza (`CapsuleShape2D`).
+- [X] Napisanie skryptu `player.gd` obsługującego płynny ruch w 8 kierunkach (Input wektorowy).
+- [X] Podpięcie prostej grafiki / kółka reprezentującego gracza.
 
 ### Checkpoint 3: Architektura Labiryntu (Environment)
-- [ ] Stworzenie głównej sceny gry (`MainLevel.tscn`).
+- [X] Stworzenie projektu
 - [ ] Skonfigurowanie węzła `TileMapLayer` dla podłogi i ścian.
 - [ ] Skonfigurowanie warstwy fizyki (Physics Layer) w TileMapie, aby ściany miały kolizje.
 - [ ] Narysowanie pierwszego układu labiryntu.
