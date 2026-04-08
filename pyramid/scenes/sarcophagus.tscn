@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cn8mkcfoi65x5"]
+
+[ext_resource type="Texture2D" uid="uid://b7syyg4t3gppr" path="res://assets/png-clipart-pharaoh-tutankhamun-sarcophagus-tomb-coffin-design-drawing.png" id="1_ms8t4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pd2n"]
+size = Vector2(104.5, 110)
+
+[node name="Sarcophagus" type="Area2D" unique_id=278697791]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1714149035]
+position = Vector2(-11.25, 8)
+shape = SubResource("RectangleShape2D_4pd2n")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1668604425]
+modulate = Color(0.86335254, 0.8420276, 0.01614652, 1)
+position = Vector2(-7, 5)
+scale = Vector2(0.15, 0.151)
+texture = ExtResource("1_ms8t4")
