@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dys76vo4obvxb"]
+
+[ext_resource type="Script" uid="uid://b13mrlhar2dra" path="res://scripts/mummy.gd" id="1_mummy"]
+[ext_resource type="Texture2D" uid="uid://dewbvo7wsnat2" path="res://assets/—Pngtree—yellow mummy clip art_6065631.png" id="2_gv7wu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mummy"]
+size = Vector2(20, 49)
+
+[node name="Mummy" type="CharacterBody2D" unique_id=1613067 groups=["mummies"]]
+script = ExtResource("1_mummy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=697423727]
+modulate = Color(0.8, 0.75, 0.5, 1)
+position = Vector2(25, -21)
+scale = Vector2(0.07, 0.07)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=773978730]
+position = Vector2(7, -24.5)
+shape = SubResource("RectangleShape2D_mummy")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=302792031]
+position = Vector2(7, -24)
+scale = Vector2(0.0385677, 0.0440625)
+texture = ExtResource("2_gv7wu")

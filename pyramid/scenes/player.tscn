@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dje5ssdxbsh1s" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dnbbbwp7ta5u8" path="res://assets/PixelCharacter.svg" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://doodn0skr2kww" path="res://scenes/bullet.tscn" id="2_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(97, 134)
@@ -20,6 +21,7 @@ metadata/_snap_count = 16
 
 [node name="Player" type="CharacterBody2D" unique_id=155571545]
 script = ExtResource("1_g2els")
+bullet_scene = ExtResource("2_qhqgy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=816262528]
 position = Vector2(-1, -3)
