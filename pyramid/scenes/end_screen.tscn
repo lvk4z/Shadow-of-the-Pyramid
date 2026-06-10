@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3ndscr33nend"]
+
+[ext_resource type="Script" path="res://scripts/end_screen.gd" id="1_end"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.07, 0.04, 0.02, 0.95)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.85, 0.65, 0.2, 0.9)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+content_margin_left = 40.0
+content_margin_top = 32.0
+content_margin_right = 40.0
+content_margin_bottom = 32.0
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_end")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -320.0
+offset_right = 360.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ResultLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"
+horizontal_alignment = 1
+
+[node name="HSep" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="Leaderboard" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BoardTitle" type="Label" parent="Panel/VBox/Leaderboard"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+theme_override_font_sizes/font_size = 30
+text = "🏆 LEADERBOARD"
+horizontal_alignment = 1
+
+[node name="ScoreList" type="VBoxContainer" parent="Panel/VBox/Leaderboard"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="Panel/VBox/Buttons"]
+layout_mode = 2
+custom_minimum_size = Vector2(220, 52)
+theme_override_font_sizes/font_size = 26
+text = "▶  PLAY AGAIN"
+
+[node name="MenuButton" type="Button" parent="Panel/VBox/Buttons"]
+layout_mode = 2
+custom_minimum_size = Vector2(220, 52)
+theme_override_font_sizes/font_size = 26
+text = "MAIN MENU"

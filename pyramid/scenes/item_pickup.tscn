@@ -1,0 +1,21 @@
+[gd_scene format=4 uid="uid://bpickup1item2"]
+
+[ext_resource type="Script" uid="uid://cocrio7snsson" path="res://scripts/item_pickup.gd" id="1_pickup"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
+radius = 30.0
+
+[node name="ItemPickup" type="Area2D"]
+script = ExtResource("1_pickup")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pickup")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -35.0
+offset_top = -60.0
+offset_right = 100.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "[ ? ]"

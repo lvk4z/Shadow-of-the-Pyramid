@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bkeyd00rdoor1"]
+
+[ext_resource type="Script" uid="uid://baie8b7856yx6" path="res://scripts/key_door.gd" id="1_door"]
+[ext_resource type="Texture2D" uid="uid://brsimwdq3hobb" path="res://assets/door-removebg-preview.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(86, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
+size = Vector2(216, 220)
+
+[node name="KeyDoor" type="StaticBody2D" unique_id=949740266]
+script = ExtResource("1_door")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=744294677]
+scale = Vector2(0.3666342, 0.31102338)
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=610332760]
+position = Vector2(-32, 0)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=693548317]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1462886164]
+position = Vector2(-42, 0)
+shape = SubResource("RectangleShape2D_area")
+
+[node name="HintLabel" type="Label" parent="." unique_id=1364993277]
+offset_left = -6.0
+offset_top = -49.0
+offset_right = 54.0
+offset_bottom = -18.0
+theme_override_colors/font_color = Color(0.96, 0.9, 0.45, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "(E)"
+horizontal_alignment = 1

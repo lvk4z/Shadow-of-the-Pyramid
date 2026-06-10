@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://btorchscene01"]
+
+[ext_resource type="Script" path="res://scripts/torch.gd" id="1_torch"]
+
+[sub_resource type="Gradient" id="Gradient_torch"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_torch"]
+gradient = SubResource("Gradient_torch")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1.0, 0.5)
+
+[node name="Torch" type="Node2D"]
+script = ExtResource("1_torch")
+
+[node name="Handle" type="Polygon2D" parent="."]
+color = Color(0.35, 0.19, 0.08, 1)
+polygon = PackedVector2Array(-3, 9, 3, 9, 3, 24, -3, 24)
+
+[node name="Wrap" type="Polygon2D" parent="."]
+color = Color(0.48, 0.31, 0.06, 1)
+polygon = PackedVector2Array(-5.5, 3, 5.5, 3, 4.5, 11, -4.5, 11)
+
+[node name="WrapLine1" type="Polygon2D" parent="."]
+color = Color(0.6, 0.42, 0.1, 0.7)
+polygon = PackedVector2Array(-5, 4.5, 5, 4.5, 5, 6, -5, 6)
+
+[node name="WrapLine2" type="Polygon2D" parent="."]
+color = Color(0.6, 0.42, 0.1, 0.7)
+polygon = PackedVector2Array(-5, 8, 5, 8, 5, 9.5, -5, 9.5)
+
+[node name="FlameOuter" type="Polygon2D" parent="."]
+color = Color(1.0, 0.35, 0.0, 1.0)
+polygon = PackedVector2Array(0, -18, 5, -12, 6, -5, 4, 2, -4, 2, -6, -5, -5, -12)
+
+[node name="FlameMid" type="Polygon2D" parent="."]
+color = Color(1.0, 0.75, 0.0, 1.0)
+polygon = PackedVector2Array(0, -15, 3, -10, 3.5, -4, 2.5, 1, -2.5, 1, -3.5, -4, -3, -10)
+
+[node name="FlameCore" type="Polygon2D" parent="."]
+color = Color(1.0, 0.95, 0.5, 1.0)
+polygon = PackedVector2Array(0, -12, 2, -7, 2, -2, 0, 0, -2, -2, -2, -7)
+
+[node name="TorchLight" type="PointLight2D" parent="."]
+position = Vector2(0, -8)
+shadow_enabled = true
+color = Color(1.0, 0.6, 0.2, 1.0)
+texture = SubResource("GradientTexture2D_torch")
+texture_scale = 5.5
+energy = 1.2

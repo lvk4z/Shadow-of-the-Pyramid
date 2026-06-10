@@ -1,6 +1,6 @@
 extends Area2D
 # -------------------------------------------------------
-#  Bullet – pocisk wystrzelony przez gracza
+#  Bullet – a projectile fired by the player
 # -------------------------------------------------------
 
 @export var speed  : float = 800.0
@@ -9,7 +9,7 @@ extends Area2D
 var direction : Vector2 = Vector2.RIGHT
 
 func _ready() -> void:
-	# Samozniszczenie po 3 sekundach (bezpieczeństwo)
+	# Self-destruct after 3 seconds (safety)
 	var t = get_tree().create_timer(3.0)
 	t.timeout.connect(queue_free)
 
@@ -17,10 +17,10 @@ func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
 
 func _on_body_entered(body: Node2D) -> void:
-	# Ignoruj gracza i innych graczy
+	# Ignore the player and other players
 	if body.is_in_group("player"):
 		return
-	# Trafienie w mumię
+	# Hit on a mummy
 	if body.is_in_group("mummies"):
 		body.take_damage(damage)
 	queue_free()

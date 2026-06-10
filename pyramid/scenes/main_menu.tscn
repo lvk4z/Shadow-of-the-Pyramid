@@ -1,0 +1,185 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm4inm3nu0men"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
+
+[sub_resource type="Gradient" id="Gradient_bg"]
+offsets = PackedFloat32Array(0, 0.55, 0.72, 1)
+colors = PackedColorArray(0.03, 0.03, 0.09, 1, 0.18, 0.1, 0.16, 1, 0.5, 0.28, 0.18, 1, 0.7, 0.45, 0.24, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bg"]
+gradient = SubResource("Gradient_bg")
+width = 256
+height = 256
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_moon"]
+bg_color = Color(0.98, 0.95, 0.78, 1)
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.05, 0.02, 0.85)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.65, 0.2, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_menu")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource("GradientTexture2D_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Moon" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 1430.0
+offset_top = 90.0
+offset_right = 1610.0
+offset_bottom = 270.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_moon")
+
+[node name="PyramidLeft" type="Polygon2D" parent="."]
+color = Color(0.32, 0.21, 0.12, 1)
+polygon = PackedVector2Array(960, 430, 620, 820, 960, 820)
+
+[node name="PyramidRight" type="Polygon2D" parent="."]
+color = Color(0.2, 0.13, 0.07, 1)
+polygon = PackedVector2Array(960, 430, 960, 820, 1300, 820)
+
+[node name="Sand" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -260.0
+color = Color(0.42, 0.27, 0.15, 1)
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.01, 0.04, 0.45)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_top = 50.0
+offset_right = 600.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 72
+text = "SHADOW OF THE PYRAMID"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_top = 150.0
+offset_right = 600.0
+offset_bottom = 185.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.85, 0.8, 0.75, 1)
+theme_override_font_sizes/font_size = 26
+text = "Treasure hunter in the dark of an ancient pyramid"
+horizontal_alignment = 1
+
+[node name="CenterRow" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -130.0
+offset_right = 700.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="LeftPanel" type="VBoxContainer" parent="CenterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="HowToTitle" type="Label" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+theme_override_font_sizes/font_size = 30
+text = "HOW TO PLAY"
+
+[node name="Controls" type="Label" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 22
+text = "W / A / S / D or Arrows : move and climb
+SPACE / LMB : club attack
+E : interact (doors, sarcophagus)
+Up at a ladder : climb on / drop off"
+
+[node name="GoalTitle" type="Label" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+theme_override_font_sizes/font_size = 30
+text = "GOAL"
+
+[node name="Goal" type="Label" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(620, 0)
+autowrap_mode = 3
+theme_override_colors/font_color = Color(0.92, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 22
+text = "Find the key, open the locked door and fight through the spider corridor. Reach the real sarcophagus before your torch goes out. Beware of fake sarcophagi and mummies!"
+
+[node name="Spacer" type="Control" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 10)
+
+[node name="PlayButton" type="Button" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
+theme_override_font_sizes/font_size = 30
+text = "▶  PLAY"
+
+[node name="QuitButton" type="Button" parent="CenterRow/LeftPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 46)
+theme_override_font_sizes/font_size = 24
+text = "QUIT"

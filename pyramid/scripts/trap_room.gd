@@ -1,12 +1,12 @@
 extends Node2D
 # -------------------------------------------------------
-#  TrapRoom – czerwony pokój z drzwiami i mumiami
+#  TrapRoom – a red room with doors and mummies
 #
-#  W Inspector przeciągnij węzły do pól:
-#    door_left   – StaticBody2D lewych drzwi
-#    door_right  – StaticBody2D prawych drzwi
-#    mummy_spawns – Node2D z dziećmi będącymi punktami spawnu
-#    mummy_scene  – PackedScene mumii
+#  In the Inspector drag the nodes into the fields:
+#    door_left   – StaticBody2D of the left door
+#    door_right  – StaticBody2D of the right door
+#    mummy_spawns – Node2D with children acting as spawn points
+#    mummy_scene  – PackedScene of the mummy
 # -------------------------------------------------------
 
 @export var door_left    : StaticBody2D
@@ -18,11 +18,11 @@ var _activated     : bool = false
 var _mummies_alive : int  = 0
 
 func _ready() -> void:
-	# Jeśli export nie przypisany – szukaj po nazwie
+	# If the export isn't assigned – look up by name
 	if door_left  == null: door_left  = get_node_or_null("DoorLeft")
 	if door_right == null: door_right = get_node_or_null("DoorRight")
 	if mummy_spawns == null: mummy_spawns = get_node_or_null("MummySpawns")
-	# Drzwi startowo OTWARTE (kolizja wyłączona, niewidoczne)
+	# Doors start OPEN (collision disabled, invisible)
 	_set_doors(false)
 
 func _on_trigger_area_body_entered(body: Node2D) -> void:
@@ -35,10 +35,10 @@ func _activate() -> void:
 	_set_doors(true)
 
 	if mummy_scene == null:
-		push_warning("TrapRoom: przypisz mummy_scene w Inspector!")
+		push_warning("TrapRoom: assign mummy_scene in the Inspector!")
 		return
 	if mummy_spawns == null:
-		push_warning("TrapRoom: przypisz mummy_spawns w Inspector!")
+		push_warning("TrapRoom: assign mummy_spawns in the Inspector!")
 		_set_doors(false)
 		return
 
@@ -51,7 +51,7 @@ func _activate() -> void:
 		_mummies_alive += 1
 
 	if _mummies_alive == 0:
-		push_warning("TrapRoom: brak punktów spawnu w mummy_spawns!")
+		push_warning("TrapRoom: no spawn points in mummy_spawns!")
 		_set_doors(false)
 
 func _on_mummy_died() -> void:

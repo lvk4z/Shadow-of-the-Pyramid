@@ -2,27 +2,50 @@ extends CharacterBody2D
 
 @export var SPEED         = 200.0
 @export var JUMP_VEL      = -500.0
-@export var CLIMB_SPEED   = 200.0
-@export var bullet_scene  : PackedScene
-@export var shoot_cooldown: float = 0.8
+@export var CLIMB_SPEED   = 150.0
+@export var swing_range   : float = 65.0
+@export var swing_cooldown: float = 0.22
+
+# Movement smoothing
+@export var ACCEL         : float = 1800.0   # horizontal acceleration (px/s²)
+@export var DECEL         : float = 2400.0   # horizontal braking (px/s²)
+@export var AIR_ACCEL     : float = 900.0    # acceleration in the air
+@export var RUN_ANIM_BASE_SPEED   : float = 1.0
+@export var CLIMB_ANIM_BASE_SPEED : float = 1.0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+const ANIM_MOVE_LEFT  := &"move_left"
+const ANIM_MOVE_RIGHT := &"move_right"
+const ANIM_CLIMB      := &"climb"
+const ANIM_JUMP_LEFT  := &"jump_left"
+const ANIM_JUMP_RIGHT := &"jump_right"
+const ANIM_ATTACK     := &"attack"
 
-# --- Stan drabiny ---
-var _on_ladder   := false   # gracz jest w obszarze drabiny
-var _is_climbing := false   # gracz aktywnie wspina się
+@onready var _anim: AnimatedSprite2D = $AnimatedSprite2D
 
-# --- Strzelanie ---
-var _facing      : float = 1.0   # 1 = prawo, -1 = lewo
-var _shoot_timer : float = 0.0
+# --- Ladder state ---
+var _on_ladder   := false
+var _is_climbing := false
+var _climb_input_y: float = 0.0
+
+# --- Club swing ---
+var _facing       : float = 1.0
+var _swing_timer  : float = 0.0
+var _is_swinging  : bool  = false
 
 func _ready() -> void:
 	add_to_group("player")
-	# Szukamy wszystkich drabin na scenie i podpinamy sygnały
+	# Snap – the character doesn't "fall off" small tile edges
+	floor_snap_length      = 24.0
+	# Gentler wall angle – less sticking
+	wall_min_slide_angle   = deg_to_rad(10.0)
+	# Stop on a slope when not moving
+	floor_stop_on_slope    = false
+	floor_max_angle        = deg_to_rad(50.0)
 	_connect_ladders()
 
 func _connect_ladders() -> void:
-	# Łączymy się z każdym węzłem w grupie "ladders" (drabiny i liny)
+	# Connect to every node in the "ladders" group (ladders and ropes)
 	for ladder in get_tree().get_nodes_in_group("ladders"):
 		if not ladder.body_entered.is_connected(_on_ladder_entered):
 			ladder.body_entered.connect(_on_ladder_entered)
@@ -47,17 +70,18 @@ func _physics_process(delta: float) -> void:
 		_process_platformer(delta)
 
 	move_and_slide()
+	_update_animation()
 
-	# Odliczanie cooldown strzelania
-	if _shoot_timer > 0.0:
-		_shoot_timer -= delta
+	# Club cooldown
+	if _swing_timer > 0.0:
+		_swing_timer -= delta
 
-	# Strzelanie
-	if Input.is_action_just_pressed("shoot") and Inventory.has_pistol:
-		_try_shoot()
+	# Club swing (Space / LMB)
+	if Input.is_action_just_pressed("shoot"):
+		_try_swing()
 
 # ──────────────────────────────────────────────
-#  DRABINA
+#  LADDER
 # ──────────────────────────────────────────────
 func _handle_ladder(_delta: float) -> void:
 	if not _on_ladder:
@@ -66,11 +90,11 @@ func _handle_ladder(_delta: float) -> void:
 
 	var vert = Input.get_axis("move_up", "move_down")
 
-	# Wejście na drabinę: naciśnij góra/dół będąc przy niej
+	# Climb onto the ladder: press up/down while next to it
 	if vert != 0.0:
 		_is_climbing = true
 
-	# Skok z drabiny
+	# Jump/detach from the ladder with up when standing at the bottom
 	if Input.is_action_just_pressed("move_up") and _is_climbing and is_on_floor():
 		_is_climbing = false
 		velocity.y   = JUMP_VEL
@@ -78,47 +102,99 @@ func _handle_ladder(_delta: float) -> void:
 func _process_climbing() -> void:
 	var vert = Input.get_axis("move_up", "move_down")
 	var horiz = Input.get_axis("move_left", "move_right")
+	_climb_input_y = vert
 
 	velocity.x = horiz * SPEED * 0.5   # można się trochę przesuwać
 	velocity.y = vert  * CLIMB_SPEED
+	if horiz != 0.0:
+		_facing = horiz
 
-	# Zatrzymaj się gdy brak wejścia (brak grawitacji na drabinie)
+	# Stop when there's no input (no gravity on the ladder)
 	if vert == 0.0:
 		velocity.y = 0.0
 
 # ──────────────────────────────────────────────
-#  ZWYKŁA PLATFORMÓWKA
-# ──────────────────────────────────────────────
+#  REGULAR PLATFORMER
+# ──────────────────────────────
 func _process_platformer(delta: float) -> void:
-	# Grawitacja
+	# Gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Skok
+	# Jump
 	if Input.is_action_just_pressed("move_up") and is_on_floor():
 		velocity.y = JUMP_VEL
 
-	# Ruch poziomy
+	# Horizontal movement with acceleration/braking
 	var dir = Input.get_axis("move_left", "move_right")
-	if dir:
-		velocity.x = dir * SPEED
-		_facing    = dir   # zapamiętaj kierunek
+	if dir != 0.0:
+		var accel = ACCEL if is_on_floor() else AIR_ACCEL
+		velocity.x = move_toward(velocity.x, dir * SPEED, accel * delta)
+		_facing    = dir
 	else:
-		velocity.x = move_toward(velocity.x, 0.0, SPEED / 10.0)
+		var decel = DECEL if is_on_floor() else AIR_ACCEL * 0.5
+		velocity.x = move_toward(velocity.x, 0.0, decel * delta)
+
+func _update_animation() -> void:
+	if _anim == null:
+		return
+
+	_anim.speed_scale = 1.0
+
+	# Attack animation – wait until it finishes (loop: false in the scene)
+	if _is_swinging:
+		if _anim.animation != ANIM_ATTACK:
+			_anim.play(ANIM_ATTACK)
+			return
+		if _anim.is_playing():
+			return
+		_is_swinging = false  # animation finished, back to normal
+
+	if _is_climbing:
+		_play_anim(ANIM_CLIMB)
+		if abs(_climb_input_y) < 0.01:
+			_anim.speed_scale = 0.0
+		else:
+			var climb_ratio: float = absf(velocity.y) / maxf(CLIMB_SPEED, 1.0)
+			_anim.speed_scale = CLIMB_ANIM_BASE_SPEED * clampf(climb_ratio, 0.65, 1.35)
+		return
+
+	if not is_on_floor():
+		_play_anim(ANIM_JUMP_LEFT if _facing < 0.0 else ANIM_JUMP_RIGHT)
+		return
+
+	if abs(velocity.x) > 8.0:
+		_play_anim(ANIM_MOVE_LEFT if velocity.x < 0.0 else ANIM_MOVE_RIGHT)
+		var run_ratio: float = absf(velocity.x) / maxf(SPEED, 1.0)
+		_anim.speed_scale = RUN_ANIM_BASE_SPEED * clampf(run_ratio, 0.7, 1.35)
+	else:
+		if _anim.is_playing():
+			_anim.stop()
+
+func _play_anim(anim_name: StringName) -> void:
+	if _anim.animation != anim_name:
+		_anim.play(anim_name)
+	elif not _anim.is_playing():
+		_anim.play()
 
 # ──────────────────────────────────────────────
-#  STRZELANIE
+#  CLUB SWING
 # ──────────────────────────────────────────────
-func _try_shoot() -> void:
-	if _shoot_timer > 0.0:
+func _try_swing() -> void:
+	if _swing_timer > 0.0:
 		return
-	if bullet_scene == null:
-		push_warning("Player: brak przypisanej bullet_scene!")
-		return
-	_shoot_timer = shoot_cooldown
-	var bullet = bullet_scene.instantiate()
-	bullet.direction = Vector2(_facing, 0.0)
-	# Najpierw dodaj do drzewa, POTEM ustaw global_position
-	get_parent().add_child(bullet)
-	# Spawn przy krawędzi sprite'a, na wysokości środka postaci
-	bullet.global_position = global_position 
+	_swing_timer = swing_cooldown
+	_is_swinging = true
+	_do_swing_hitcheck()
+
+func _do_swing_hitcheck() -> void:
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if not is_instance_valid(enemy):
+			continue
+		if not enemy.has_method("take_damage"):
+			continue
+		var dist := global_position.distance_to(enemy.global_position)
+		if dist > swing_range:
+			continue
+		# The hit lands on both sides (left and right)
+		enemy.take_damage(1)
