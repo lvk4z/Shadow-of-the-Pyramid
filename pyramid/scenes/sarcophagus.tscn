@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cn8mkcfoi65x5"]
 
-[ext_resource type="Texture2D" uid="uid://b7ocek8irgah4" path="res://assets/sarcophagus.png" id="2_4pd2n"]
+[ext_resource type="Texture2D" uid="uid://bixl0k8eta8bq" path="res://assets/fake-sarcophagus.png" id="2_4pd2n"]
 [ext_resource type="Script" uid="uid://b1g01jt2fvcy3" path="res://scripts/sarcophagus.gd" id="2_sarc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pd2n"]
@@ -18,7 +18,7 @@ position = Vector2(-19.999998, 9)
 scale = Vector2(0.73627675, 0.73580194)
 texture = ExtResource("2_4pd2n")
 
-[node name="HintLabel" type="Label" parent="."]
+[node name="HintLabel" type="Label" parent="." unique_id=1226789682]
 offset_left = -60.0
 offset_top = -100.0
 offset_right = 60.0
