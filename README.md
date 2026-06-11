@@ -1,6 +1,21 @@
 # Shadow of the Pyramid
 
-<video src="pyramid/demo1.mp4" controls width="720"></video>
+![video](demo1.mp4)
+
+---
+
+## 0. How to Run
+
+**Requirements:** [Godot Engine 4.x](https://godotengine.org/download) must be installed.
+
+| Platform | Command |
+|---|---|
+| Linux / macOS | double-click `run.sh` or run `./run.sh` in terminal |
+| Windows | double-click `run.bat` |
+
+The scripts automatically find the Godot binary (checks `PATH` and common install locations) and launch the project.
+
+---
 
 ## 1. About the Game
 
