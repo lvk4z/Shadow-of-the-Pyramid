@@ -6,7 +6,7 @@
 
 **Shadow of the Pyramid** is a 2D action-platformer in which a treasure hunter descends into a dark ancient pyramid with a single torch, searching for the true sarcophagus before the flame burns out.
 
-The game is built around two converging pressures: a **countdown timer** (the torch) that forces the player to move quickly, and **uncertainty** — fake sarcophagi look identical to the real one and release mummies when opened. The player must find a key, unlock a door, fight through a spider-infested corridor, and make the right choice under time pressure.
+The game is built around two converging pressures: a **countdown timer** (the torch) that forces the player to move quickly, and **uncertainty** fake sarcophagi look identical to the real one and release mummies when opened. The player must find a key, unlock a door, fight through a spider-infested corridor, and make the right choice under time pressure.
 
 
 ---
@@ -23,10 +23,10 @@ The game is built around two converging pressures: a **countdown timer** (the to
 ## 3. Game Mechanics
 
 ### World
-A single 2D side-scrolling level built with **TileMapLayer** (background, collision, objects, foreground layers). The world is bounded — a fixed pyramid layout with no procedural generation. The camera follows the player with a slight dead-zone.
+A single 2D side-scrolling level built with **TileMapLayer** (background, collision, objects, foreground layers). The world is bounded - a fixed pyramid layout with no procedural generation. The camera follows the player with a slight dead-zone.
 
 ### Darkness and the Torch
-The level is permanently darkened by a **CanvasModulate** node. The player's torch (`PointLight2D`) is the primary — and initially only — light source. The torch dims in real time as the 60-second game timer counts down. When the timer reaches zero the player loses.
+The level is permanently darkened by a **CanvasModulate** node. The player's torch (`PointLight2D`) is the primary — and initially only - light source. The torch dims in real time as the 60-second game timer counts down. When the timer reaches zero the player loses.
 
 **Wall lanterns** are scattered around the level. Pressing **E** near one resets the timer to full and restores the torch to full brightness. Each lantern can only be used once.
 
@@ -43,8 +43,8 @@ The level is permanently darkened by a **CanvasModulate** node. The player's tor
 The player has no HP — any contact with an enemy is currently cosmetic (damage system is stubbed). The only way to lose is by running out of torch time.
 
 ### Movement
-- **Run / jump** — standard platformer movement with separate acceleration (1800 px/s²) and braking (2400 px/s²) values for a responsive, snappy feel.
-- **Ladders and ropes** — the player enters a climbing state by pressing Up or Down while touching a ladder/rope area. Gravity is suspended during climbing. Pressing Up while standing on the floor near a ladder performs a jump-dismount.
+- **Run / jump** - standard platformer movement with separate acceleration (1800 px/s²) and braking (2400 px/s²) values for a responsive, snappy feel.
+- **Ladders and ropes** - the player enters a climbing state by pressing Up or Down while touching a ladder/rope area. Gravity is suspended during climbing. Pressing Up while standing on the floor near a ladder performs a jump-dismount.
 
 ### Combat — Club
 Pressing **Space** or **LMB** triggers a melee swing. The attack hits all nodes in the `enemies` group within `swing_range` pixels in front of the player. One hit kills any enemy. After the swing there is a 0.22 s cooldown.
@@ -104,7 +104,7 @@ The leaderboard is seeded with seven fictional Egyptian-named entries so the pla
 | `vector-pixel-art-rope-…png/.webp` — rope texture | Imported from a free vector/pixel art source |
 | `torch.svg` — torch icon | Imported SVG |
 | `PixelCharacter.svg` — alternate character asset | Imported SVG |
-| **Torch flame, lanterns, spiders** | **Drawn procedurally in GDScript** (`_draw()`) — no image files |
+| **Torch flame, lanterns, spiders** | **Drawn procedurally in GDScript** |
 
 ---
 
