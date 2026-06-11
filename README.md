@@ -1,6 +1,6 @@
 # Shadow of the Pyramid
 
-![demo_video](/pyramid/demo1.mp4)
+<video src="pyramid/demo1.mp4" controls width="720"></video>
 
 ## 1. About the Game
 
